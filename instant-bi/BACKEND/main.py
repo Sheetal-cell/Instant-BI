@@ -34,7 +34,7 @@ if not api_key:
 
 genai.configure(api_key=api_key)
 
-MODELS = ["gemini-1.5-flash", "gemini-1.5-pro"]
+MODELS = ["gemini-2.0-flash", "gemini-1.5-flash"]
 
 # In-memory store
 file_store: dict = {}
