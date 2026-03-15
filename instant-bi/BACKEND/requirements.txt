@@ -1,8 +1,8 @@
 fastapi
 uvicorn
 python-multipart
-streamlit
 google-generativeai
 python-dotenv
 pandas
 openpyxl
+streamlit
