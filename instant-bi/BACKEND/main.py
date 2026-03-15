@@ -34,7 +34,7 @@ if not api_key:
 
 genai.configure(api_key=api_key)
 
-MODELS = ["gemini-2.0-flash", "gemini-1.5-flash"]
+MODELS = ["gemini-2.0-flash"]
 
 # In-memory store
 file_store: dict = {}
@@ -46,6 +46,7 @@ def file_hash(data: bytes) -> str:
 
 
 def get_sql_from_gemini(question: str, schema_string: str, model: str) -> str:
+
     prompt = f"""
 You are an expert in converting English questions to SQL queries.
 
@@ -55,7 +56,6 @@ Database schema:
 Rules:
 - Return ONLY the SQL query
 - No explanation
-- Use exact column names
 
 Question: {question}
 """
