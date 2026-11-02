@@ -193,7 +193,7 @@ function LandingPage({ onUseTool, dark, onToggleDark }) {
   }, []);
 
   return (
-    <div style={{ minHeight: "100vh", background: t.bg, fontFamily: "'Syne', sans-serif", color: t.text, overflowX: "hidden", position: "relative", transition: "background 0.4s, color 0.4s" }}>
+    <div className="landing-root" style={{ minHeight: "100vh", background: t.bg, fontFamily: "'Syne', sans-serif", color: t.text, overflowX: "hidden", position: "relative", transition: "background 0.4s, color 0.4s" }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -219,7 +219,7 @@ function LandingPage({ onUseTool, dark, onToggleDark }) {
       <AnimatedBg dark={dark} />
 
       {/* NAVBAR */}
-      <nav style={{
+      <nav className="landing-nav" style={{
         position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
         padding: "0 56px", height: 66,
         display: "flex", alignItems: "center", justifyContent: "space-between",
@@ -234,7 +234,7 @@ function LandingPage({ onUseTool, dark, onToggleDark }) {
           </div>
           <span style={{ fontWeight: 800, fontSize: 19, letterSpacing: "-0.5px" }}>Instant<span style={{ color: "#6366f1" }}>BI</span></span>
         </div>
-        <div style={{ display: "flex", gap: 32, alignItems: "center" }}>
+        <div className="landing-nav-links" style={{ display: "flex", gap: 32, alignItems: "center" }}>
           <button className="land-navlink" onClick={() => document.getElementById("features")?.scrollIntoView({ behavior: "smooth" })}>Features</button>
           <button className="land-navlink" onClick={() => document.getElementById("how-it-works")?.scrollIntoView({ behavior: "smooth" })}>How it works</button>
           <button className="land-navlink">Docs</button>
@@ -244,8 +244,8 @@ function LandingPage({ onUseTool, dark, onToggleDark }) {
       </nav>
 
       {/* HERO */}
-      <section style={{ paddingTop: 148, paddingBottom: 100, padding: "148px 56px 100px", position: "relative", zIndex: 1 }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64, alignItems: "center" }}>
+      <section className="landing-hero" style={{ paddingTop: 148, paddingBottom: 100, padding: "148px 56px 100px", position: "relative", zIndex: 1 }}>
+        <div className="landing-hero-inner" style={{ maxWidth: 1100, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64, alignItems: "center" }}>
           <div>
             <div style={{ display: "inline-flex", alignItems: "center", gap: 7, background: t.bg3, border: `1px solid ${t.border2}`, borderRadius: 99, padding: "5px 14px 5px 7px", marginBottom: 24 }}>
               <div style={{ width: 20, height: 20, background: "linear-gradient(135deg,#6366f1,#8b5cf6)", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -270,7 +270,7 @@ function LandingPage({ onUseTool, dark, onToggleDark }) {
           </div>
 
           {/* Hero Visual */}
-          <div style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "center", height: 380 }}>
+          <div className="landing-hero-visual" style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "center", height: 380 }}>
             <div style={{ position: "absolute", width: 260, height: 260, borderRadius: "50%", border: `1px solid ${t.border}`, opacity: 0.5 }} className="l-ring" />
             <div className="l-dot1" />
             <div className="l-dot2" />
@@ -282,13 +282,13 @@ function LandingPage({ onUseTool, dark, onToggleDark }) {
       </section>
 
       {/* FEATURES */}
-      <section id="features" style={{ padding: "80px 56px", background: t.sectionBg, position: "relative", zIndex: 1 }}>
+      <section className="landing-section" id="features" style={{ padding: "80px 56px", background: t.sectionBg, position: "relative", zIndex: 1 }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 56 }}>
             <p style={{ fontSize: 11, fontWeight: 700, color: "#6366f1", letterSpacing: 3, textTransform: "uppercase", marginBottom: 12, fontFamily: "'DM Sans', sans-serif" }}>Features</p>
             <h2 style={{ fontSize: 38, fontWeight: 800, fontFamily: "'Playfair Display', Georgia, serif", color: t.text }}>Everything You Need</h2>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 22 }}>
+          <div className="landing-feature-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 22 }}>
             {[
               { icon: <Upload size={22} color="#6366f1" />, title: "CSV & Excel Upload", desc: "Drag and drop any spreadsheet. Our backend auto-detects schema and prepares it for querying instantly." },
               { icon: <MessageSquare size={22} color="#10b981" />, title: "Natural Language Queries", desc: "Ask questions like 'Show revenue by region' and get SQL-powered results with AI-generated dashboards." },
@@ -308,7 +308,7 @@ function LandingPage({ onUseTool, dark, onToggleDark }) {
       </section>
 
       {/* HOW IT WORKS */}
-      <section id="how-it-works" style={{ padding: "80px 56px", background: t.sectionBg2, position: "relative", zIndex: 1 }}>
+      <section className="landing-section" id="how-it-works" style={{ padding: "80px 56px", background: t.sectionBg2, position: "relative", zIndex: 1 }}>
         <div style={{ maxWidth: 860, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 56 }}>
             <p style={{ fontSize: 11, fontWeight: 700, color: "#6366f1", letterSpacing: 3, textTransform: "uppercase", marginBottom: 12, fontFamily: "'DM Sans', sans-serif" }}>How It Works</p>
@@ -333,7 +333,7 @@ function LandingPage({ onUseTool, dark, onToggleDark }) {
       </section>
 
       {/* CTA BAND */}
-      <section style={{ padding: "72px 56px", background: "linear-gradient(135deg,#6366f1 0%,#8b5cf6 100%)", position: "relative", zIndex: 1, textAlign: "center" }}>
+      <section className="landing-cta" style={{ padding: "72px 56px", background: "linear-gradient(135deg,#6366f1 0%,#8b5cf6 100%)", position: "relative", zIndex: 1, textAlign: "center" }}>
         <h2 style={{ fontSize: 40, fontWeight: 800, color: "white", fontFamily: "'Playfair Display', Georgia, serif", marginBottom: 16 }}>Ready to explore your data?</h2>
         <p style={{ color: "rgba(255,255,255,0.75)", fontSize: 16, marginBottom: 32, fontFamily: "'DM Sans', sans-serif", fontWeight: 300 }}>No setup required. Just upload a file and start asking questions.</p>
         <button className="land-cta" style={{ background: "white", color: "#6366f1", boxShadow: "0 10px 36px rgba(0,0,0,0.2)" }} onClick={onUseTool}>
@@ -342,7 +342,7 @@ function LandingPage({ onUseTool, dark, onToggleDark }) {
       </section>
 
       {/* FOOTER */}
-      <footer style={{ background: t.footerBg, padding: "40px 56px", position: "relative", zIndex: 1 }}>
+      <footer className="landing-footer" style={{ background: t.footerBg, padding: "40px 56px", position: "relative", zIndex: 1 }}>
         <div style={{ maxWidth: 1100, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 16 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
             <div style={{ width: 28, height: 28, background: "linear-gradient(135deg,#6366f1,#8b5cf6)", borderRadius: 7, display: "flex", alignItems: "center", justifyContent: "center" }}><BarChart2 size={14} color="white" /></div>
