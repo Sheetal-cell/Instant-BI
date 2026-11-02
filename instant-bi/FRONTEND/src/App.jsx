@@ -707,21 +707,19 @@ function ToolPage({ onBack, dark, onToggleDark }) {
       {isMobile && (
         <div style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 9, height: 56, background: t.sidebarBg, borderBottom: `1px solid ${t.border}`, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 16px", backdropFilter: "blur(12px)" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
-            <button onClick={() => setSidebarOpen(true)} style={{ background: t.bg4, border: `1px solid ${t.border}`, borderRadius: 9, padding: "6px 8px", cursor: "pointer", display: "flex", alignItems: "center" }}>
-              <Menu size={16} color={t.text2} />
+            <button onClick={() => setSidebarOpen(true)} aria-label="Open dataset and questions panel" style={{ background: t.bg4, border: `1px solid ${t.border}`, borderRadius: 9, padding: "7px 10px", cursor: "pointer", display: "flex", alignItems: "center", gap: 7, color: t.text2, fontSize: 11, fontWeight: 700, fontFamily: "inherit", whiteSpace: "nowrap" }}>
+              <Menu size={16} color={t.text2} /> Data &amp; Chat
             </button>
             <div style={{ fontWeight: 800, fontSize: 15, color: t.text }}>Instant<span style={{ color: "#6366f1" }}>BI</span></div>
           </div>
           <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
             <ThemeToggle dark={dark} onToggle={onToggleDark} />
-            {fileId && (
-              <button
-                onClick={() => setSidebarOpen(true)}
-                style={{ background: "linear-gradient(135deg,#6366f1,#8b5cf6)", border: "none", borderRadius: 9, padding: "7px 12px", cursor: "pointer", fontSize: 11, fontWeight: 700, color: "white", fontFamily: "inherit" }}
-              >
-                Ask
-              </button>
-            )}
+            <button
+              onClick={() => setSidebarOpen(true)}
+              style={{ background: "linear-gradient(135deg,#6366f1,#8b5cf6)", border: "none", borderRadius: 9, padding: "7px 12px", cursor: "pointer", fontSize: 11, fontWeight: 700, color: "white", fontFamily: "inherit", whiteSpace: "nowrap" }}
+            >
+              {fileId ? "Ask a question" : "Upload dataset"}
+            </button>
           </div>
         </div>
       )}
