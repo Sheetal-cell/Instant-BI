@@ -8,6 +8,7 @@ import tempfile
 import traceback
 import json
 import time
+import re
 
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -46,6 +47,27 @@ def file_hash(data: bytes) -> str:
     return hashlib.md5(data).hexdigest()
 
 
+def clean_sql_response(raw_sql: str) -> str:
+    """Remove Markdown fences and surrounding labels from Gemini SQL output."""
+    sql = (raw_sql or "").strip()
+
+    # Remove a complete Markdown code fence, including optional language label.
+    fenced_match = re.fullmatch(
+        r"```(?:sql)?\s*(.*?)\s*```",
+        sql,
+        flags=re.IGNORECASE | re.DOTALL,
+    )
+    if fenced_match:
+        sql = fenced_match.group(1).strip()
+
+    # Handle occasional unfenced language labels or a leading SQL: label.
+    sql = re.sub(r"^\s*```(?:sql)?\s*", "", sql, flags=re.IGNORECASE)
+    sql = re.sub(r"\s*```\s*$", "", sql)
+    sql = re.sub(r"^\s*SQL\s*:\s*", "", sql, flags=re.IGNORECASE)
+
+    return sql.strip()
+
+
 def get_sql_from_gemini(question: str, schema_string: str, model: str) -> str:
 
     prompt = f"""
@@ -55,8 +77,10 @@ Database schema:
 {schema_string}
 
 Rules:
-- Return ONLY the SQL query
-- No explanation
+- Return ONLY the SQL query.
+- Do not use Markdown or code fences.
+- Do not include explanations or labels.
+- Return executable SQLite-compatible SQL.
 
 Question: {question}
 """
@@ -64,7 +88,7 @@ Question: {question}
     model_instance = genai.GenerativeModel(model)
     response = model_instance.generate_content(prompt)
 
-    return response.text.strip()
+    return clean_sql_response(response.text)
 
 
 def get_dashboard_from_gemini(question: str, headers: list, sample_data: list, sql_results: list, model: str) -> dict:
