@@ -495,6 +495,7 @@ function ToolPage({ onBack, dark, onToggleDark }) {
 
     return (
       <div
+        className="analytics-chart-card"
         key={index}
         ref={!isFullscreen ? (el) => { if (el) chartRefsMap.current[index] = el; } : null}
         style={{ background: t.chartCard, borderRadius: isFullscreen ? 0 : 18, padding: isFullscreen ? 0 : 24, border: isFullscreen ? "none" : `1px solid ${t.chartCardBorder}`, boxShadow: isFullscreen ? "none" : "0 4px 20px rgba(0,0,0,0.06)", transition: "background 0.4s, border-color 0.4s", height: isFullscreen ? "100%" : "auto" }}
@@ -776,7 +777,7 @@ function ToolPage({ onBack, dark, onToggleDark }) {
 
         {/* Dashboard */}
         {dashboard && (
-          <div style={{ padding: isMobile ? "20px 16px 56px" : "32px 40px 72px", maxWidth: 1160, margin: "0 auto" }}>
+          <div className="analytics-dashboard-content" style={{ padding: isMobile ? "20px 16px 56px" : "32px 40px 72px", maxWidth: 1160, margin: "0 auto" }}>
             <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginBottom: 32, flexWrap: "wrap", gap: 18 }}>
               <div>
                 <div style={{ display: "flex", alignItems: "center", gap: 7, marginBottom: 9 }}>
@@ -871,7 +872,7 @@ function ToolPage({ onBack, dark, onToggleDark }) {
             )}
 
             {/* Charts */}
-            <div style={{ display: "grid", gridTemplateColumns: (!isMobile && dashboard.charts?.length > 1) ? "repeat(2,1fr)" : "1fr", gap: 20 }}>
+            <div className="analytics-chart-grid" style={{ display: "grid", gridTemplateColumns: (!isMobile && dashboard.charts?.length > 1) ? "repeat(2,minmax(0,1fr))" : "minmax(0,1fr)", gap: 20 }}>
               {dashboard.charts?.map((chart, index) => renderChart(chart, index))}
             </div>
           </div>
@@ -879,18 +880,18 @@ function ToolPage({ onBack, dark, onToggleDark }) {
 
         {/* SQL + Raw Table */}
         {sqlCode && (
-          <div style={{ padding: isMobile ? "0 16px 56px" : "0 40px 48px", maxWidth: 1160, margin: "0 auto" }}>
+          <div className="analytics-results-content" style={{ padding: isMobile ? "0 16px 56px" : "0 40px 48px", maxWidth: 1160, margin: "0 auto" }}>
             <div style={{ background: dark ? "#0d0b1a" : "#1a1a2e", borderRadius: 16, padding: "18px 20px", overflowX: "auto", marginBottom: 16 }}>
               <p style={{ fontSize: 9, color: "#6b69a0", marginBottom: 8, fontFamily: "monospace", textTransform: "uppercase", letterSpacing: 2 }}>Generated SQL</p>
-              <pre style={{ color: "#a5f3a0", fontSize: 13, fontFamily: "monospace", whiteSpace: "pre-wrap", margin: 0 }}>{sqlCode}</pre>
+              <pre className="analytics-sql-code" style={{ color: "#a5f3a0", fontSize: 13, fontFamily: "monospace", whiteSpace: "pre-wrap", margin: 0 }}>{sqlCode}</pre>
             </div>
             {tableData?.rows?.length > 0 && (
               <div style={{ background: t.chartCard, border: `1px solid ${t.chartCardBorder}`, borderRadius: 16, overflow: "hidden", boxShadow: "0 4px 20px rgba(0,0,0,0.06)" }}>
                 <p style={{ fontSize: 9, color: t.text4, padding: "10px 16px", borderBottom: `1px solid ${t.border}`, fontFamily: "monospace", textTransform: "uppercase", letterSpacing: 2 }}>
                   Results — {tableData.rows.length} rows
                 </p>
-                <div style={{ overflowX: "auto", maxHeight: 288 }}>
-                  <table style={{ width: "100%", fontSize: 13, borderCollapse: "collapse" }}>
+                <div className="analytics-results-table-wrap" style={{ overflowX: "auto", maxHeight: 288 }}>
+                  <table className="analytics-results-table" style={{ width: "100%", fontSize: 13, borderCollapse: "collapse" }}>
                     <thead>
                       <tr style={{ background: t.bg4, position: "sticky", top: 0 }}>
                         {tableData.columns.map(col => (
