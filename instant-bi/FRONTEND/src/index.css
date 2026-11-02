@@ -241,3 +241,23 @@ body {
     font-size: 12px !important;
   }
 }
+
+
+/* Mobile dataset/chat drawer */
+@media (max-width: 767px) {
+  .mob-sidebar {
+    width: min(88vw, 360px) !important;
+    height: 100vh;
+    height: 100dvh;
+    max-height: 100dvh;
+    overflow: hidden;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .mob-sidebar > .ts {
+    min-height: 0;
+    flex: 1 1 auto;
+  }
+  .mob-sidebar form input {
+    min-width: 0;
+  }
+}
