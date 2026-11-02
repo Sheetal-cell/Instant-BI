@@ -5,7 +5,7 @@ import re
 
 
 def _sanitize_name(name: str) -> str:
-    name = name.strip().lower()
+    name = str(name).strip().lower()
     name = re.sub(r"[^a-z0-9_]", "_", name)
     name = re.sub(r"_+", "_", name)
     return name.strip("_") or "col"
