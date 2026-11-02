@@ -7,6 +7,7 @@ import hashlib
 import tempfile
 import traceback
 import json
+import time
 
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -133,10 +134,33 @@ def try_models(fn, *args):
     last_err = None
 
     for model in MODELS:
-        try:
-            return fn(*args, model)
-        except Exception as e:
-            last_err = e
+        # Retry temporary Gemini timeouts / overload responses.
+        for attempt in range(3):
+            try:
+                return fn(*args, model)
+            except Exception as e:
+                last_err = e
+                error_text = str(e).upper()
+                retryable = any(
+                    marker in error_text
+                    for marker in [
+                        "504", "DEADLINE_EXCEEDED",
+                        "503", "UNAVAILABLE",
+                        "429", "RESOURCE_EXHAUSTED",
+                        "TIMEOUT"
+                    ]
+                )
+
+                if not retryable or attempt == 2:
+                    break
+
+                # Exponential backoff: 2 seconds, then 4 seconds.
+                wait_seconds = 2 ** (attempt + 1)
+                print(
+                    f"Temporary Gemini error on attempt {attempt + 1}. "
+                    f"Retrying in {wait_seconds}s: {e}"
+                )
+                time.sleep(wait_seconds)
 
     raise last_err
 
